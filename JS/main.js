@@ -1,4 +1,4 @@
-const productos = [
+let productos = [
     {
         instrumento: "Guitarra",
         modelo: "ASHBE3",
@@ -54,7 +54,7 @@ const productos = [
         material: "Roble",
         color: "Fade blue",
         cuerdas: 7,
-    },
+    }
 ]
 
 const mostrarInventario = () => {
@@ -128,40 +128,42 @@ const modificarInformacion = () => {
     alert("El produto se ha modificado completamente: \n1.- Instrumento: " + productos[index].instrumento + "\n2.-Modelo: " + productos[index].modelo + "\n3.-Marca: " + productos[index].marca + "\n4.-Material: " + productos[index].material + "\n5.-Color: " + productos[index].color + "\n6.-Cuerdas: " + productos[index].cuerdas + "\nPuedes modificarlo en cualquier momento.")
 }
 
-let opcion = parseInt(prompt("Bienvenido al manejo de inventario para Boost Music \nPor favor, selecciona la accion que deseas realizar: \n1.- Revisar inventario.\n2.- Agregar articulo.\n3.- Sacar articulo del inventario.\n4.- Modificar informacion de un articulo.\n5.- Salir. \nSelecciona la opcion deseada: "))
+    alert("Bienvenido al manejo de inventario.")
+    let opcion = parseInt(prompt("Bienvenido al manejo de inventario para Boost Music \nPor favor, selecciona la accion que deseas realizar: \n1.- Revisar inventario.\n2.- Agregar articulo.\n3.- Sacar articulo del inventario.\n4.- Modificar informacion de un articulo.\n5.- Salir. \nSelecciona la opcion deseada: "))
 
 
-while (opcion != 5) {
-    switch (opcion) {
-        case 1:
-            if (productos.length != 0) {
-                mostrarInventario()
-            } else {
-                alert("No tienes productos en el inventario.")
-            }
-            break
-        case 2:
-            agregarArticulos()
-            break
-        case 3:
-            if (productos.length != 0) {
-                sacarProducto()
-            } else {
-                alert("No tienes productos en el inventario.")
-            }
-            break
-        case 4:
-            if (productos.length != 0) {
-                modificarInformacion()
-            } else {
-                alert("No tienes productos en el inventario.")
-            }
-            break
-        case 5:
-            alert("Adios, vuelve pronto.")
-            break
-        default:
-            alert("Opcion no disponible.")
+    while (opcion != 5) {
+        switch (opcion) {
+            case 1:
+                if (productos.length != 0) {
+                    mostrarInventario()
+                } else {
+                    alert("No tienes productos en el inventario.")
+                }
+                break
+            case 2:
+                agregarArticulos()
+                break
+            case 3:
+                if (productos.length != 0) {
+                    sacarProducto()
+                } else {
+                    alert("No tienes productos en el inventario.")
+                }
+                break
+            case 4:
+                if (productos.length != 0) {
+                    modificarInformacion()
+                } else {
+                    alert("No tienes productos en el inventario.")
+                }
+                break
+            case 5:
+                alert("Adios, vuelve pronto.")
+                break
+            default:
+                alert("Opcion no disponible.")
+                break
+        }
+        opcion = parseInt(prompt("Bienvenido al manejo de inventario para Boost Music \nPor favor, selecciona la accion que deseas realizar: \n1.- Revisar inventario.\n2.- Agregar articulo.\n3.- Sacar articulo del inventario.\n4.- Modificar informacion de un articulo.\n5.- Salir. \nSelecciona la opcion deseada: "))
     }
-    opcion = parseInt(prompt("Bienvenido al manejo de inventario para Boost Music \nPor favor, selecciona la accion que deseas realizar: \n1.- Revisar inventario.\n2.- Agregar articulo.\n3.- Sacar articulo del inventario.\n4.- Modificar informacion de un articulo.\n5.- Salir. \nSelecciona la opcion deseada: "))
-}
