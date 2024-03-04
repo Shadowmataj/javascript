@@ -76,8 +76,9 @@ h1{
     display: flex;
 }
 
-.erase-button{
-    width: 100%;
+.action-button{
+    text-align: center;
+    width: 50%;
     height: 100%;
 }
 

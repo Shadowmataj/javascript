@@ -248,9 +248,12 @@ contenedorProductos.className = "products-container"
 let filtro = []
 let numeroArticulos = 5
 let pagina = 1
-let newProductList = productsList
+let newProductList = []
+for (let i = 0; i < productsList.length; i++) {
+    productsList[i]["shown"] = productsList[i].id
+}
+newProductList = productsList
 let numeroPaginas = Math.round(newProductList.length / numeroArticulos)
-
 // implementaciones.
 contenedor.innerHTML = `
     <div class="first-line">
@@ -302,7 +305,7 @@ const textFilter = document.getElementById("busqueda")
 // mostrar productos.
 
 function showProducts(listaProductos) {
-    filtro = listaProductos.filter(producto => producto.id <= (numeroArticulos * pagina) && producto.id >= (numeroArticulos * pagina - (numeroArticulos - 1)))
+    filtro = listaProductos.filter(producto => producto.shown <= (numeroArticulos * pagina) && producto.shown >= (numeroArticulos * pagina - (numeroArticulos - 1)))
     contenedorProductos.innerHTML = ""
     filtro.forEach(element => {
 
@@ -310,17 +313,23 @@ function showProducts(listaProductos) {
         lineaProducto.className = "product-line"
         lineaProducto.innerHTML = `
         <p class="table id">${element.id}</p>
-        <textarea class="text-area table" upkey = "updateElement()">${element.nombre}</textarea>
-        <textarea class="text-area table">$${element.precio}</textarea>
-        <textarea class="text-area table">${element.inventory}</textarea>
+        <textarea class="text-area table" id= ${"nombre-element-" + element.id}>${element.nombre}</textarea>
+        <textarea class="text-area table" id= ${"precio-element-" + element.id}>$${element.precio}</textarea>
+        <textarea class="text-area table" id= ${"inventory-element-" + element.id}>${element.inventory}</textarea>
         `
 
         const buttonsContainer = document.createElement("p")
         buttonsContainer.setAttribute("id", "buttons-container");
         buttonsContainer.className = "table"
 
+        const updateButton = document.createElement("button")
+        updateButton.className = "action-button"
+        updateButton.addEventListener("click", (event) => updateElement(event, element.id, element.nombre))
+        updateButton.innerHTML = "Guardar"
+        buttonsContainer.appendChild(updateButton)
+
         const eraseButton = document.createElement("button")
-        eraseButton.className = "erase-button"
+        eraseButton.className = "action-button"
         eraseButton.addEventListener("click", (event) => eraseElement(event, element.nombre))
         eraseButton.innerHTML = "Eliminar"
         buttonsContainer.appendChild(eraseButton)
@@ -328,17 +337,28 @@ function showProducts(listaProductos) {
         contenedorProductos.appendChild(lineaProducto)
     })
 }
+
 function eraseElement(event, elementNombre) {
+    const productListId = productsList.filter(producto => producto.nombre == elementNombre)[0].id
     productsList = productsList.filter(producto => producto.nombre != elementNombre)
-    for (let i = 0; i < productsList.length; i++) {
-        productsList[i].id = i + 1
+    for (let i = productListId; i < productsList.length; i++) {
+        productsList[i].shown = i + 1
     }
     newProductList = productsList
     textFilt()
 }
 
-function updateElement() {
+function updateElement(event, elementId, elementNombre) {
+    let productListIndex = 0
+    productListIndex = productsList.filter(item => item.nombre == elementNombre)[0].id-1
+    const updateNombre = document.getElementById(`${"nombre-element-" + elementId}`).value
+    const updatePrecio = document.getElementById(`${"precio-element-" + elementId}`).value
+    const updateInventory = document.getElementById(`${"inventory-element-" + elementId}`).value
 
+    productsList[productListIndex].nombre = updateNombre
+    productsList[productListIndex].precio = updatePrecio.slice(1)
+    productsList[productListIndex].inventory = updateInventory
+    textFilt()
 }
 
 function changeShowedItems() {
@@ -371,10 +391,10 @@ textFilter.addEventListener("keyup", textFilt)
 function textFilt() {
     newProductList = productsList.filter(producto => producto.nombre.toLocaleLowerCase().includes(textFilter.value.toLocaleLowerCase()))
     for (let i = 0; i < newProductList.length; i++) {
-        newProductList[i].id = i + 1
+        newProductList[i].shown = i + 1
+        
     }
     numeroPaginas = Math.round(newProductList.length / numeroArticulos)
-    pagina = 1
     page.innerHTML = pagina
     conteoPaginas.innerHTML = `Páginas: ${numeroPaginas}`
     showProducts(newProductList)
