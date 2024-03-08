@@ -240,9 +240,10 @@ let productsList = [
 ]
 
 // Elementos
-let contenedor = document.getElementById("list-container")
-let contenedorProductos = document.createElement("div")
+const contenedor = document.getElementById("list-container")
+const contenedorProductos = document.createElement("div")
 contenedorProductos.className = "products-container"
+
 
 // Variables
 let filtro = []
@@ -268,6 +269,7 @@ contenedor.appendChild(contenedorProductos)
 
 showProducts(productsList)
 
+
 const paginas = document.createElement("div")
 paginas.className = "paginas-display"
 paginas.innerHTML = `
@@ -285,7 +287,7 @@ paginas.innerHTML = `
         <button id="pagina-siguiente">+</button>
     </div>
     <div class="modifiers">
-        <span>Articulos</span>
+        <span>Articulos:</span>
         <select onchange="changeShowedItems()" name="items" id="items">
             <option value=5>5</option>
             <option value=10>10</option>
@@ -294,12 +296,20 @@ paginas.innerHTML = `
     </div>
 </div>
 `
+
 contenedor.appendChild(paginas)
 const page = document.getElementById("pagina")
 const nextPage = document.getElementById("pagina-siguiente")
 const previousPage = document.getElementById("pagina-anterior")
 const conteoPaginas = document.getElementById("pages-counter")
 const textFilter = document.getElementById("busqueda")
+
+const body = document.getElementsByTagName("body")
+const footer = document.createElement("footer")
+footer.innerHTML = "Gracias por usar nuestro servicio."
+
+console.log(body)
+body[0].appendChild(footer)
 
 
 // mostrar productos.
@@ -333,15 +343,15 @@ function showProducts(listaProductos) {
         eraseButton.addEventListener("click", (event) => eraseElement(event, element.nombre))
         eraseButton.innerHTML = "Eliminar"
         buttonsContainer.appendChild(eraseButton)
+
         lineaProducto.appendChild(buttonsContainer)
         contenedorProductos.appendChild(lineaProducto)
     })
 }
 
 function eraseElement(event, elementNombre) {
-    const productListId = productsList.filter(producto => producto.nombre == elementNombre)[0].id
     productsList = productsList.filter(producto => producto.nombre != elementNombre)
-    for (let i = productListId; i < productsList.length; i++) {
+    for (let i = 0; i < productsList.length; i++) {
         productsList[i].shown = i + 1
     }
     newProductList = productsList
@@ -350,7 +360,7 @@ function eraseElement(event, elementNombre) {
 
 function updateElement(event, elementId, elementNombre) {
     let productListIndex = 0
-    productListIndex = productsList.filter(item => item.nombre == elementNombre)[0].id-1
+    productListIndex = productsList.filter(item => item.nombre == elementNombre)[0].id - 1
     const updateNombre = document.getElementById(`${"nombre-element-" + elementId}`).value
     const updatePrecio = document.getElementById(`${"precio-element-" + elementId}`).value
     const updateInventory = document.getElementById(`${"inventory-element-" + elementId}`).value
@@ -366,7 +376,7 @@ function changeShowedItems() {
     numeroPaginas = Math.round(newProductList.length / numeroArticulos)
     pagina = 1
     page.innerHTML = pagina
-    conteoPaginas.innerHTML = numeroPaginas
+    conteoPaginas.innerHTML = `Paginas: ${numeroPaginas}`
     showProducts(newProductList)
 }
 
@@ -392,10 +402,15 @@ function textFilt() {
     newProductList = productsList.filter(producto => producto.nombre.toLocaleLowerCase().includes(textFilter.value.toLocaleLowerCase()))
     for (let i = 0; i < newProductList.length; i++) {
         newProductList[i].shown = i + 1
-        
     }
     numeroPaginas = Math.round(newProductList.length / numeroArticulos)
+    if (pagina > numeroPaginas) {
+        pagina = 1
+    }
     page.innerHTML = pagina
     conteoPaginas.innerHTML = `Páginas: ${numeroPaginas}`
     showProducts(newProductList)
 }
+
+
+
