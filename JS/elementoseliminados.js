@@ -1,7 +1,7 @@
 
 const elementosEliminados = JSON.parse(localStorage.getItem("eliminatedProducts"))
 let eraseItems = []
-if(elementosEliminados){
+if (elementosEliminados) {
     eraseItems = JSON.parse(localStorage.getItem("eliminatedProducts"))
 }
 
@@ -41,7 +41,7 @@ appSection.appendChild(returnLink)
 showProducts(eraseItems)
 
 function showProducts(listaProductos) {
-    
+
     contenedorProductos.innerHTML = ""
     listaProductos.forEach(element => {
 
@@ -57,4 +57,35 @@ function showProducts(listaProductos) {
         contenedorProductos.appendChild(lineaProducto)
     })
 }
+
+const paginas = document.createElement("div")
+
+if ([...eraseItems].length == 0) {
+    paginas.className = "paginas-display erase-page"
+    paginas.innerHTML = `<h2 class="erase-items-empty">No hay elementos para mostrar.</h2>`
+} else {
+    paginas.className = "paginas-display restore-items"
+    paginas.innerHTML = `
+    <button id= "restore-elements">Recuperar</button>
+        `
+}
+
+productsContainer.appendChild(paginas)
+
+const restoreButton = document.getElementById("restore-elements")
+
+restoreButton.addEventListener("click", () => {
+    Swal.fire({
+        icon: "question",
+        title: "¿Deseas restaurar estos elementos?",
+        showConfirmButton: true,
+        cancelButtonText: "Cancelar",
+        showCancelButton: true,
+        confirmButtonText: "Confirmar"
+    }).then(resp => {
+        if(resp.isConfirmed)
+        localStorage.clear()
+        location.reload()
+    })
+})
 

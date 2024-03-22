@@ -110,6 +110,10 @@ footer {
     height: 100%;
 }
 
+.erase-button:hover{
+    cursor: pointer;
+}
+
 #busqueda {
     width: 15vw;
     color: black;
@@ -170,3 +174,10 @@ footer {
     text-align: center;
 }
 
+.erase-page{
+    justify-content: center;
+}
+
+.restore-items{
+    justify-content: end;
+}

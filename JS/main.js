@@ -108,7 +108,6 @@ fetch("../db/data.json")
             </select >
         </div >
         <button id= "add-element-button">Agregar</button>
-        <button id= "restore-elements">Recuperar</button>
     </div >
     `
 
@@ -125,12 +124,6 @@ fetch("../db/data.json")
 
     const addElementButton = document.getElementById("add-element-button")
     addElementButton.addEventListener("click", newItem)
-
-    const restoreButton = document.getElementById("restore-elements")
-    restoreButton.addEventListener("click", () => {
-        localStorage.clear()
-        location.reload()
-    })
 
     const textFilter = document.getElementById("busqueda")
     textFilter.addEventListener("keyup", textFilt)
