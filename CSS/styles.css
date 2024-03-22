@@ -80,7 +80,7 @@ footer {
     width: 100%;
     height: 25px;
     min-width: 4vh;
-    margin-top: 10px;
+    margin-top: 0px;
 }
 
 .modifiers {
@@ -151,3 +151,22 @@ footer {
     gap: 15px;
     margin-bottom: 15px;
 }
+
+
+.cancel-button{
+    position: absolute;
+    top: 3vh;
+    right: 3vw;
+    margin: 10%;
+}
+
+#link{
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 10vh;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
