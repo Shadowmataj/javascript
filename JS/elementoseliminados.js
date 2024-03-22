@@ -12,7 +12,7 @@ const head = document.createElement("header")
 head.innerHTML = "<h1>Manejo de inventario Boost Music</h1>"
 appSection.appendChild(head)
 const productsContainer = document.createElement("section")
-productsContainer.id = "list-container"
+productsContainer.id = "erase-list-container"
 appSection.appendChild(productsContainer)
 const contenedorProductos = document.createElement("div")
 contenedorProductos.className = "products-container"
@@ -60,32 +60,38 @@ function showProducts(listaProductos) {
 
 const paginas = document.createElement("div")
 
-if ([...eraseItems].length == 0) {
-    paginas.className = "paginas-display erase-page"
-    paginas.innerHTML = `<h2 class="erase-items-empty">No hay elementos para mostrar.</h2>`
-} else {
-    paginas.className = "paginas-display restore-items"
-    paginas.innerHTML = `
-    <button id= "restore-elements">Recuperar</button>
-        `
-}
+
+    const restorButton = document.createElement("button")
+    restorButton.className = "restore-elements"
+    restorButton.innerHTML = "Recuperar"
+    appSection.appendChild(restorButton)    
 
 productsContainer.appendChild(paginas)
 
 const restoreButton = document.getElementById("restore-elements")
 
-restoreButton.addEventListener("click", () => {
+restorButton.addEventListener("click", () => {
     Swal.fire({
         icon: "question",
         title: "¿Deseas restaurar estos elementos?",
         showConfirmButton: true,
         cancelButtonText: "Cancelar",
         showCancelButton: true,
-        confirmButtonText: "Confirmar"
+        confirmButtonText: "Confirmar",
+        confirmButtonColor: "#470d64"
     }).then(resp => {
-        if(resp.isConfirmed)
-        localStorage.clear()
-        location.reload()
+        if (resp.isConfirmed) {
+            Swal.fire({
+                icon: "success",
+                title: "Se han restaurado los elementos",
+                showConfirmButton: false,
+                timer: 1000
+            })
+            setTimeout(() => {
+                localStorage.clear()
+                location.reload()
+            }, 1000)
+        }
     })
 })
 

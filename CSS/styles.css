@@ -31,6 +31,14 @@ footer {
     width: 100%;
 }
 
+#erase-list-container{
+    position:absolute;
+    top: 13vh;
+    width: 100%;
+    max-height: 70vh;
+    overflow-y: scroll;
+}
+
 .first-line {
     display: flex;
     justify-content: start;
@@ -180,4 +188,10 @@ footer {
 
 .restore-items{
     justify-content: end;
+}
+
+.restore-elements{
+    position: absolute;
+    bottom: 13vh;
+    right: 12vw;
 }
