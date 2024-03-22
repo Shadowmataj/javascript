@@ -1,18 +1,18 @@
-fetch("../db/data.json")
-.then(resp => resp.json())
-.then(data =>
-    localStorage.setItem("info", JSON.stringify(data))
+fetch("https://raw.githubusercontent.com/Shadowmataj/javaScript/main/db/data.json")
+    .then(resp => resp.json())
+    .then(data =>
+        localStorage.setItem("info", JSON.stringify(data))
     )
-    
-    setTimeout(() => {
-        let productsList = JSON.parse(localStorage.getItem("info"))
-        
-        
-            for (let i = 0; i < productsList.length; i++) {
-                productsList[i]["shown"] = productsList[i].id
-            }
 
-        let newItemVar = {
+setTimeout(() => {
+    let productsList = JSON.parse(localStorage.getItem("info"))
+
+
+    for (let i = 0; i < productsList.length; i++) {
+        productsList[i]["shown"] = productsList[i].id
+    }
+
+    let newItemVar = {
         id: null,
         nombre: "",
         description: "",
@@ -416,7 +416,7 @@ fetch("../db/data.json")
         }
     }
 
-    function resetShowOrder (){
+    function resetShowOrder() {
         for (let i = 0; i < productsList.length; i++) {
             productsList[i].shown = i + 1
         }

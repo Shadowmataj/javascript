@@ -60,11 +60,10 @@ function showProducts(listaProductos) {
 
 const paginas = document.createElement("div")
 
-
-    const restorButton = document.createElement("button")
-    restorButton.className = "restore-elements"
-    restorButton.innerHTML = "Recuperar"
-    appSection.appendChild(restorButton)    
+const restorButton = document.createElement("button")
+restorButton.className = "restore-elements"
+restorButton.innerHTML = "Recuperar"
+appSection.appendChild(restorButton)
 
 productsContainer.appendChild(paginas)
 
