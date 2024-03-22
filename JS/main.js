@@ -4,7 +4,6 @@ fetch("https://raw.githubusercontent.com/Shadowmataj/javaScript/main/db/data.jso
         
         let productsList = data
 
-
         for (let i = 0; i < productsList.length; i++) {
             productsList[i]["shown"] = productsList[i].id
         }
@@ -426,3 +425,5 @@ fetch("https://raw.githubusercontent.com/Shadowmataj/javaScript/main/db/data.jso
             showProducts(newProductList)
         }
     })
+
+        
