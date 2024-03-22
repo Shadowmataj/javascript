@@ -428,4 +428,4 @@ setTimeout(() => {
         textFilter.value = ""
         showProducts(newProductList)
     }
-}, 100)
+}, 1500)
